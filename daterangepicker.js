@@ -134,6 +134,8 @@
                 firstDay: 0
             };
 
+            this.selectedRangeLabel = '';
+
             this.cb = function () { };
 
             if (typeof options.format == 'string')
@@ -448,7 +450,7 @@
 
         notify: function () {
             this.updateView();
-            this.cb(this.startDate, this.endDate);
+            this.cb(this.startDate, this.endDate, this.selectedRangeLabel);
         },
 
         move: function () {
@@ -541,8 +543,10 @@
         clickRange: function (e) {
             var label = e.target.innerHTML;
             if (label == this.locale.customRangeLabel) {
+                this.selectedRangeLabel = this.locale.customRangeLabel;
                 this.showCalendars();
             } else {
+                this.selectedRangeLabel = label;
                 var dates = this.ranges[label];
 
                 this.startDate = dates[0];
