@@ -518,7 +518,8 @@
         enterRange: function (e) {
             var label = e.target.innerHTML;
             if (label == this.locale.customRangeLabel) {
-                this.updateView();
+                this.setStartDate(moment().startOf('month'));
+                this.setEndDate(moment());
             } else {
                 var dates = this.ranges[label];
                 this.container.find('input[name=daterangepicker_start]').val(dates[0].format(this.format));
