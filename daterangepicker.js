@@ -177,6 +177,9 @@
             if (typeof options.dateLimit == 'object')
                 this.dateLimit = options.dateLimit;
 
+            if (typeof options.customDate == 'string')
+                this.customDate = options.customDate;
+
             // update day names order to firstDay
             if (typeof options.locale == 'object') {
 
@@ -518,8 +521,7 @@
         enterRange: function (e) {
             var label = e.target.innerHTML;
             if (label == this.locale.customRangeLabel) {
-                this.setStartDate(moment().startOf('month'));
-                this.setEndDate(moment());
+                this.updateView();
             } else {
                 var dates = this.ranges[label];
                 this.container.find('input[name=daterangepicker_start]').val(dates[0].format(this.format));
@@ -545,6 +547,17 @@
             var label = e.target.innerHTML;
             if (label == this.locale.customRangeLabel) {
                 this.selectedRangeLabel = this.locale.customRangeLabel;
+                // If there is a custom date range specified, then execute this block
+                if (this.customDate !== undefined) {
+                    var dates = this.ranges[this.customDate];
+                    this.startDate = dates[0];
+                    this.endDate = dates[1];
+                    this.leftCalendar.month.month(this.startDate.month()).year(this.startDate.year()).hour(this.startDate.hour()).minute(this.startDate.minute());
+                    this.rightCalendar.month.month(this.endDate.month()).year(this.endDate.year()).hour(this.endDate.hour()).minute(this.endDate.minute());
+                    this.updateCalendars();
+                    this.updateInputText();
+                }
+
                 this.showCalendars();
             } else {
                 this.selectedRangeLabel = label;
