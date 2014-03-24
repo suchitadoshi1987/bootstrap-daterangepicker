@@ -402,6 +402,29 @@
             this.updateCalendars();
         },
 
+        setMinDate: function(minDate) {
+            if (typeof minDate === 'string')
+                this.minDate = moment(minDate, this.format);
+
+            if (typeof minDate === 'object')
+                this.minDate = moment(minDate);
+
+            this.updateView();
+            this.updateCalendars();
+        },
+
+        setMaxDate: function(maxDate) {
+            if (typeof maxDate === 'string')
+                this.maxDate = moment(maxDate, this.format);
+
+            if (typeof maxDate === 'object')
+                this.maxDate = moment(maxDate);
+
+            this.updateView();
+            this.updateCalendars();
+        },
+
+
         mousedown: function (e) {
             e.stopPropagation();
         },
