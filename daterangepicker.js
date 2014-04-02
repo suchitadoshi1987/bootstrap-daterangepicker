@@ -424,6 +424,9 @@
             this.updateCalendars();
         },
 
+        setDisabled: function(disabled) {
+            this.disabled = disabled;
+        },
 
         mousedown: function (e) {
             e.stopPropagation();
@@ -516,6 +519,9 @@
         },
 
         show: function (e) {
+            if (this.disabled) {
+              return;
+            }
             this.container.show();
             this.move();
 
