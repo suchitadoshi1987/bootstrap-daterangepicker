@@ -402,6 +402,32 @@
             this.updateCalendars();
         },
 
+        setMinDate: function(minDate) {
+            if (typeof minDate === 'string')
+                this.minDate = moment(minDate, this.format);
+
+            if (typeof minDate === 'object')
+                this.minDate = moment(minDate);
+
+            this.updateView();
+            this.updateCalendars();
+        },
+
+        setMaxDate: function(maxDate) {
+            if (typeof maxDate === 'string')
+                this.maxDate = moment(maxDate, this.format);
+
+            if (typeof maxDate === 'object')
+                this.maxDate = moment(maxDate);
+
+            this.updateView();
+            this.updateCalendars();
+        },
+
+        setDisabled: function(disabled) {
+            this.disabled = disabled;
+        },
+
         mousedown: function (e) {
             e.stopPropagation();
         },
@@ -493,6 +519,9 @@
         },
 
         show: function (e) {
+            if (this.disabled) {
+              return;
+            }
             this.container.show();
             this.move();
 
