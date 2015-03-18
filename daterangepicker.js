@@ -78,9 +78,6 @@
             .on('click', 'li', $.proxy(this.clickRange, this))
             .on('mouseenter', 'li', $.proxy(this.enterRange, this))
             .on('mouseleave', 'li', $.proxy(this.updateFormInputs, this));
-        if (options.ranges.length === 0) {
-		    this.showCalendars();
-	    }
         if (this.element.is('input')) {
             this.element.on({
                 'click.daterangepicker': $.proxy(this.show, this),
@@ -285,6 +282,10 @@
             }
 
             if (typeof options.ranges == 'object') {
+            	if (Object.keys(options.ranges).length === 0) {
+			        this.showCalendars();
+		}
+		else {
                 for (var range in options.ranges) {
 
                     var start = moment(options.ranges[range][0]);
@@ -308,6 +309,7 @@
 
                     this.ranges[range] = [start, end];
                 }
+		
 
                 var list = '<ul>';
                 for (var range in this.ranges) {
@@ -317,6 +319,7 @@
                 list += '</ul>';
                 this.container.find('.ranges ul').remove();
                 this.container.find('.ranges').prepend(list);
+            }
             }
 
             if (typeof callback == 'function') {
