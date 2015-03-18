@@ -78,7 +78,9 @@
             .on('click', 'li', $.proxy(this.clickRange, this))
             .on('mouseenter', 'li', $.proxy(this.enterRange, this))
             .on('mouseleave', 'li', $.proxy(this.updateFormInputs, this));
-
+        if (options.ranges.length === 0) {
+		    this.showCalendars();
+	    }
         if (this.element.is('input')) {
             this.element.on({
                 'click.daterangepicker': $.proxy(this.show, this),
